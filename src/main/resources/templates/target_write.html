@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/sanitize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://unpkg.com/charts.css/dist/charts.min.css">
+<script src="https://kit.fontawesome.com/2236e39c35.js"
+	crossorigin="anonymous"></script>
+<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="header" th:replace="~{layouts/header :: header}"></div>
+	<div class="container-fluid">
+		<div class="row"
+			th:style=" 'background-image: url(/img/background.jpg);background-size: cover; '">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<div class="card m-5">
+						<div class="target_form" th:if="${month_target} == null">
+							<form th:action="@{/target_insert}" th:object="${target_form}" 
+								method="post" class="p-5" >
+								<input type="hidden" th:value="${thismonth}" name="month">
+								<input type="hidden" value="未達成"  name="state">
+								<input type="hidden" value="未達成"  name="state2">  
+								<input type="hidden" value="未達成"  name="state3"> 
+								<div class="form-group">
+									<label>目標１</label> 
+									<input type="text" th:field="*{month_target1}" class="form-control" required> 
+									<span th:field="*{month_target1}" th:if="${#fields.hasErrors('month_target1')}"
+									th:errors="*{month_target1}" class="err"></span>
+								</div>
+								<div class="form-group">
+									<label>目標２</label> 
+									<input type="text" th:field="*{month_target2}" class="form-control" > 
+									<span th:field="*{month_target2}" th:if="${#fields.hasErrors('month_target2')}"
+									th:errors="*{month_target2}" class="err"></span>
+								</div>
+								<div class="form-group">
+									<label>目標３</label>
+									<input type="text" th:field="*{month_target3}" class="form-control" > 
+									<span th:field="*{month_target3}" th:if="${#fields.hasErrors('month_target3')}"
+									th:errors="*{month_target3}" class="err"></span>
+								</div>
+								<a th:if="${title}!='今月の目標書き込み'" th:href="@{/pile}" class="btn btn-danger">エラーが発生したので、登録をしなおしてください。</a>
+								<input th:if="${title}=='今月の目標書き込み'"  type="submit" value="登録する" class="btn btn-primary">
+								<a th:if="${title}=='今月の目標書き込み'"  class="btn btn-success" th:href="@{/pile}">ダッシュボードへ</a>
+							</form>
+						</div>
+						<div class="thismonth_target" th:if="${month_target} != null" style="text-align:center;">
+							<h1>今月の目標</h1>
+							<form th:action="@{/target_insert}" th:each="m:${month_target}" 
+							method="post" th:object="${target_form}" class="p-5">
+								<input type="hidden" th:value="${m.id}" name="id">
+								<input type="hidden" th:value="${m.month}" name="month">
+								<input type="hidden" th:value="${m.month_target1}" name="month_target1">
+								<input type="hidden" th:value="${m.month_target2}" name="month_target2">
+								<input type="hidden" th:value="${m.month_target3}" name="month_target3">
+								<input type="hidden" th:value="${m.time_target}" name="time_target">
+								<div class="form-group">
+								<h3 th:text="${m.month_target1}"></h3>
+								<label>
+									<select th:field="*{state}">
+										<option value="目標達成">目標達成</option>
+										<option th:text="${m.state}" th:value="${m.state}"  selected></option>
+									</select>
+								</label>
+								</div>
+								<div class="form-group">
+								<h3 th:text="${m.month_target2}"></h3>
+								<label>
+									<select th:field="*{state2}">
+										<option value="目標達成">目標達成</option>
+										<option th:text="${m.state2}" th:value="${m.state2}" selected></option>
+									</select>
+								</label>
+								</div>
+								<div class="form-group">
+								<h3 th:text="${m.month_target3}"></h3>
+								<label>
+									<select th:field="*{state3}">
+										<option value="目標達成">目標達成</option>
+										<option th:text="${m.state3}"  th:value="${m.state3}" selected></option>
+									</select>
+								</label>
+								</div>
+								<input type="submit" value="達成状況を変更する" class="btn btn-primary">
+								<a class="btn btn-success" th:href="@{/pile}">積み上げ画面へ戻る</a>
+							</form>
+						</div>
+				</div>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
+	<div class="footer bg-dark">
+		<div th:replace="~{layouts/footer :: footer}"></div>
+	</div>
+</body>
+</html>

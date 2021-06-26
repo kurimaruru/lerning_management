@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+body{
+	margin:0;
+}
+
+.month_box{
+	display: flex;
+}
+
+.table_border{
+	border-bottom:1px solid #aaaaaa;
+}
+
+.sunday{
+	color:red;
+}
+
+.cansun{
+	color:red;
+	pointer-events: none;
+}
+
+.can{
+	color:black;
+	pointer-events: none;
+}
+
+.saturday{
+	color:blue;
+}
+
+.otherday{
+	color:black;
+}
+
+.write_jump{
+	width:300px; 
+	height:300px; 
+}
+
+#sample13 {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: 250px 50px;
+    grid-template-areas:
+        "data-axis chart"
+        ".         primary-axis";
+    /*background-color: #eee;*/
+    width: 90%;
+}
+#sample13 > table {
+    grid-area: chart;
+}
+#sample13 > .primary-axis {
+    grid-area: primary-axis;
+}
+#sample13 > .data-axis {
+    grid-area: data-axis;
+    writing-mode: tb-rl;
+    transform: rotateZ(180deg);
+}
+
+.err{
+	color:red;
+}
+
+i{
+	color:#00ff7f;
+}
+
+.achive{
+	font-weight:bold;
+	color:#00afcc;
+}
+
+.plain{
+	text-align:center;
+	margin-bottom:50px;
+}
+
+.experience{
+	text-align:center;
+	margin-bottom:2rem;
+}
+
+.my-ex{
+	width:400px;
+	text-align:center;
+	padding:10px;
+}
+
+

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/sanitize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://unpkg.com/charts.css/dist/charts.min.css">
+<script src="https://kit.fontawesome.com/2236e39c35.js"
+	crossorigin="anonymous"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="header" th:replace="~{layouts/header :: header}"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-3" style="background-color:#1f3134;">
+				<div class="month_box" >
+					<a th:href="@{/pile/{x}(x=${month-1})}"
+						th:class="${month}<=1?can:otherday" style="margin-left:90px;"><i
+						class="fas fa-angle-double-left"></i></a>
+					<h5 th:text="${year} + '年' + ${month} + '月'" style="color:#b2cbe4;"></h5>
+					<a th:href="@{/pile/{x}(x=${month+1})}"
+						th:class="${month}>=12?can:otherday"><i
+						class="fas fa-angle-double-right"></i></a>
+				</div>
+				<div class="main-calendar">
+					<table class="table calendar"
+						style="width: 300px; height: 300px; text-align: center; background-color: #fef9fb;">
+						<thead>
+							<tr>
+								<th class="sunday">日</th>
+								<th>月</th>
+								<th>火</th>
+								<th>水</th>
+								<th>木</th>
+								<th>金</th>
+								<th class="saturday">土</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${farstweek[0]})} "
+									th:text="${farstweek[0]}"
+									th:class="${farstweek[0]}>7?cansun:sunday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${farstweek[1]})} "
+									th:text="${farstweek[1]}"
+									th:class="${farstweek[1]}>7?can:otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${farstweek[2]})} "
+									th:text="${farstweek[2]}"
+									th:class="${farstweek[2]}>7?can:otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${farstweek[3]})} "
+									th:text="${farstweek[3]}"
+									th:class="${farstweek[3]}>7?can:otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${farstweek[4]})} "
+									th:text="${farstweek[4]}"
+									th:class="${farstweek[4]}>7?can:otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${farstweek[5]})} "
+									th:text="${farstweek[5]}"
+									th:class="${farstweek[5]}>7?can:otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${farstweek[6]})} "
+									th:text="${farstweek[6]}"></a>
+							</tr>
+							<tr>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${secondweek[0]})} "
+									th:text="${secondweek[0]}" class="sunday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${secondweek[1]})} "
+									th:text="${secondweek[1]}" class="otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${secondweek[2]})} "
+									th:text="${secondweek[2]}" class="otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${secondweek[3]})} "
+									th:text="${secondweek[3]}" class="otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${secondweek[4]})} "
+									th:text="${secondweek[4]}" class="otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${secondweek[5]})} "
+									th:text="${secondweek[5]}" class="otherday"></a>
+								<td><a
+									th:href=" @{/day(month=${month}, day=${secondweek[6]})} "
+									th:text="${secondweek[6]}"></a>
+							</tr>
+							<tr>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${thirdweek[0]})} "
+									th:text="${thirdweek[0]}" class="sunday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${thirdweek[1]})} "
+									th:text="${thirdweek[1]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${thirdweek[2]})} "
+									th:text="${thirdweek[2]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${thirdweek[3]})} "
+									th:text="${thirdweek[3]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${thirdweek[4]})} "
+									th:text="${thirdweek[4]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${thirdweek[5]})} "
+									th:text="${thirdweek[5]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${thirdweek[6]})} "
+									th:text="${thirdweek[6]}"></a>
+							</tr>
+							<tr>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${forthweek[0]})} "
+									th:text="${forthweek[0]}" class="sunday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${forthweek[1]})} "
+									th:text="${forthweek[1]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${forthweek[2]})} "
+									th:text="${forthweek[2]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${forthweek[3]})} "
+									th:text="${forthweek[3]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${forthweek[4]})} "
+									th:text="${forthweek[4]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${forthweek[5]})} "
+									th:text="${forthweek[5]}" class="otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${forthweek[6]})} "
+									th:text="${forthweek[6]}"></a>
+							</tr>
+							<tr>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${fiveweek[0]})} "
+									th:text="${fiveweek[0]}"
+									th:class="${fiveweek[0]}<10?cansun:sunday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${fiveweek[1]})} "
+									th:text="${fiveweek[1]}"
+									th:class="${fiveweek[1]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${fiveweek[2]})} "
+									th:text="${fiveweek[2]}"
+									th:class="${fiveweek[2]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${fiveweek[3]})} "
+									th:text="${fiveweek[3]}"
+									th:class="${fiveweek[3]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${fiveweek[4]})} "
+									th:text="${fiveweek[4]}"
+									th:class="${fiveweek[4]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${fiveweek[5]})} "
+									th:text="${fiveweek[5]}"
+									th:class="${fiveweek[5]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${fiveweek[6]})} "
+									th:text="${fiveweek[6]}"
+									th:class="${fiveweek[6]}<10?can:otherday"></a>
+							</tr>
+							<tr th:if="${sixweek[0]} != 0 ">
+								<td><a
+									th:href="  @{/day(month=${month}, day=${sixweek[0]})} "
+									th:text="${sixweek[0]}"
+									th:class="${sixweek[0]}<10?cansun:sunday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${sixweek[1]})} "
+									th:text="${sixweek[1]}"
+									th:class="${sixweek[1]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${sixweek[2]})} "
+									th:text="${sixweek[2]}"
+									th:class="${sixweek[2]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${sixweek[3]})} "
+									th:text="${sixweek[3]}"
+									th:class="${sixweek[3]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${sixweek[4]})} "
+									th:text="${sixweek[4]}"
+									th:class="${sixweek[4]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${sixweek[5]})} "
+									th:text="${sixweek[5]}"
+									th:class="${sixweek[5]}<10?can:otherday"></a>
+								<td><a
+									th:href="  @{/day(month=${month}, day=${sixweek[6]})} "
+									th:text="${sixweek[6]}"
+									th:class="${sixweek[6]}<10?can:otherday"></a>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="card write_jump mb-3">
+					<div class="mb-5 mt-5 ml-5" th:if="${#lists.size(month_target)}<1">
+						<a th:href="@{/target_write/{x}(x=${month})}" style="color:#24140e;">
+						<i class="fas fa-user-edit mr-2"></i>目標書き込みへ</a>
+					</div>
+					<div th:each="m : ${month_target}" class="mb-5 ml-5">
+						<a th:href=" @{/target_update(id=${m.id}, month=${m.month} )}" style="color:#24140e;"><i class="fas fa-user-edit mr-2" ></i>目標を更新する</a>
+					</div>
+					<a th:href="@{/top}" class="mb-5 ml-5" style="color:#24140e;"><i class="fas fa-laptop-house mr-2"></i>トップページへ</a>
+					<a th:href="@{/}" class="mb-5 ml-5" style="color:#24140e;"><i class="far fa-newspaper mr-2"></i>記事一覧へ</a>
+				</div>
+			</div>
+			<div class="col-9" th:style=" 'background-image: url(/img/background.jpg);
+			background-size: cover;background-color:rgba(255,255,255,0.3); background-blend-mode:lighten;'">
+				<div class="target_state">
+					<div class="card" style="width: 900px; margin:30px 50px 50px 50px;">
+					  <div class="card-body px-auto">
+					  	<div style="display:flex;">
+					  	<div class="prof mr-5">
+					  		<img alt="mypicture" th:src="@{/img/mwam.jpg}" class="rounded-circle mb-3 ml-2" width="125" height="125">
+					  		<h4>Riku Kurihara</h4>
+					  	</div>
+					  	<div class="table-contents-body">
+					    <h3 class="card-subtitle text-muted">今月の目標達成状況</h3>
+					    <table class="table" style="width:600px;">
+						  <thead class="thead-dark">
+						    <tr>
+						      <th scope="col">#</th>
+						      <th scope="col">目標</th>
+						      <th scope="col">達成状況</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="m : ${month_target}">
+						      <th scope="row">目標1</th>
+						      <td th:text="${m.month_target1}"></td>
+						      <td  th:text="${m.state}" th:class="${m.state}=='未達成'?not_acheve:achive"></td>
+						    </tr>
+						    <tr th:each="m : ${month_target}">
+						      <th scope="row">目標2</th>
+						      <td  th:text="${m.month_target2}"></td>
+						      <td  th:text="${m.state2}" th:class="${m.state2}=='未達成'?not_acheve:achive"></td>
+						    </tr>
+						    <tr th:each="m : ${month_target}">
+						      <th scope="row">目標3</th>
+						      <td  th:text="${m.month_target3}"></td>
+						      <td  th:text="${m.state3}" th:class="${m.state3}=='未達成'?not_acheve:achive"></td>
+						    </tr>
+						  </tbody>
+						</table>
+						</div>
+						</div>
+					    </div>
+					  </div>
+					</div>
+					<div class="graph2">
+						<div id="sample13">
+							<table class="charts-css column show-labels show-primary-axis">
+								<caption>Axes Example #13</caption>
+								<tr th:each="x:${monthdata}">
+									<th scope="row" th:text="${x.day}" style="color:white;"></th>
+									<td th:style="${x.stime} <= 5 ? |--size: calc(${x.stime}/ 12); border:1px solid black;
+									background: linear-gradient(#00ffff,#7afa7a);| :
+									 |--size: calc(${x.stime}/ 12); border:1px solid black;
+									background: linear-gradient(#ff7f00,#ffff7a);|
+									" >
+									<span th:text="${x.stime}"></span></td>
+								</tr>
+							</table>
+							<div class="primary-axis" style="color:white; font-weight:bold;">Day</div>
+							<div class="data-axis" style="color:white; font-weight:bold;">Study-Time</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="footer bg-dark">
+		<div th:replace="~{layouts/footer :: footer}"></div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

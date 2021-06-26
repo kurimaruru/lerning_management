@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/sanitize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://unpkg.com/charts.css/dist/charts.min.css">
+<script src="https://kit.fontawesome.com/2236e39c35.js"
+	crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<title>トップページ</title>
+</head>
+<body>
+	<div class="header" th:replace="~{layouts/header :: header}"></div>
+	<div class="container-fluid" th:style=" 'background-image: url(/img/background.jpg);background-size: cover; '">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+			 	<div class="plain">
+			 		<h1 style="color:white;margin-top:100px;">あなただけのプログラミング学習記録を</h1>
+			 		<h1 style="color:white;margin-bottom:50px;">積み上げよう</h1>
+			 		<p style="color:white;">「１か月ごとの学習時間を可視化したい」「エラーを解決した際に参考にした記事をまとめて管理したい」</p>
+			 		<p style="color:white;">プログラミングLMSはそんなあなたにおススメしたい学習管理ツールです。</p>
+			 	</div>
+			 	<div class="experience">
+			 		<h1 style="color:white;margin-bottom:2rem;">こんな経験ございませんか？</h1>
+			 		<div style="display:flex;">
+			 			<div class="card ml-5 my-ex">
+			 				<img alt="study" th:src="@{/img/time.jpg}" width="350" height="250">
+			 				<h3 class="card-title">自身の学習時間や目標を管理したいと思ったことがある</h3>
+			 				<p class="card^text">
+			 					資格取得やプログラミングスキルを獲得するためには、目標や学習計画を立てることが
+			 					大切ではないでしょうか。プログラミングLMSでは、それらを視覚的に
+			 					管理することができるため自分の学習状況を把握しやすくすることができます。このような
+			 					ことから自己分析ツールとして利用することをおススメします。
+			 				</p>
+			 				<a th:href="@{/pile}" class="btn btn-primary">学習記録はこちらから！</a>
+			 			</div>
+			 			<div class="card ml-5 my-ex">
+			 				<img alt="study" th:src="@{/img/error.jpg}" width="350" height="250">
+			 				<h3 class="card-title">以前に経験したエラーの解決方法を忘れてしまう</h3>
+			 				<p class="card^text">
+			 					プログラミング学習をする中で避けては通れないのがエラーです。
+			 					そんな中、以前と同じようなエラーに遭遇したにも関わらず解決方法を
+			 					忘れてしまったという経験をしたことはございませんか。プログラミングLMS
+			 					ではエラーの原因や解決方法をまとめる記事を投稿することができ、参考記事
+			 					をまとめることができます。
+			 				</p>
+			 				<a th:href="@{/}" class="btn btn-primary">記事投稿はこちらから！</a>
+			 			</div>
+			 		</div>
+			 	</div>
+			</div>
+			<div class="col-2"></div>
+		</div>
+	</div>
+	<div class="footer bg-dark">
+		<div th:replace="~{layouts/footer :: footer}"></div>
+	</div>
+</body>
+</html>

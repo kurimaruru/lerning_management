@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${title}"></title>
+</head>
+<body>
+	<div th:fragment="header" th:remove="tag">
+		<nav class="navbar navbar-dark bg-dark">
+			<h1 class="col-4 ml-5" style="color:white;">プログラミングLMS</h1>
+			<a href="https://twitter.com/?lang=ja" class="footer-a-tag" style="color:#7affff;"> 
+				<i class="fab fa-twitter sns " style="color:#00afcc;"></i>
+				学習記録をつぶやこう
+			</a>
+			<form th:action="@{/search}" method="post" class="form-inline" th:if="${title} == '記事一覧' ">
+				<input class="form-control mr-sm-2" type="search" placeholder="記事タイトル" aria-label="Search" name="title">
+    			<button class="btn btn-primary my-2 my-sm-0" type="submit">検索</button>
+			</form>
+			<a th:href="@{/}" th:if="${title}=='記事検索'" class="btn btn-primary">記事一覧に戻る</a>
+		</nav>
+	</div>
+</body>
+</html>

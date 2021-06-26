@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/sanitize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://unpkg.com/charts.css/dist/charts.min.css">
+<script src="https://kit.fontawesome.com/2236e39c35.js"
+	crossorigin="anonymous"></script>
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="header" th:replace="~{layouts/header :: header}"></div>
+	<div class="container-fluid">
+		<div class="row" th:style=" 'background-image: url(/img/background.jpg);background-size: cover; '">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<div class="card m-5 p-2" >
+					<div class="card-body">
+						<img alt="study" th:src="@{/img/study2.jpg}" width="485" height="300">
+						<h3 th:text="${detailYear+'年'+detailMonth+'月'+detailDay+'日'}" class="card-title mb-5"></h3>
+						<div th:each="x : ${daydate}">
+							<div class="mb-3" style="display:flex;">
+								<h3 class="mb-2">学習時間</h3>
+								<h3 class="mb-2 ml-5" th:text="${x.stime}+'時間'"></h3>
+							</div>
+							<p class="mb-1">一日日記</p>
+							<div class="card" style="background-color:#dbffff;">
+								<div class="card^body">
+									<h5 class="mb-2" th:text="${x.memo}"></h5>
+								</div>
+							</div>
+						</div>
+						<a th:if="${#lists.isEmpty(daydate)}" 
+							th:href="@{/record(record_month=${detailMonth}, record_day=${detailDay}) }" 
+							class="btn btn-primary">記録する</a>
+						<a th:href="@{/pile}" class="btn btn-success ml-3 ">ダッシュボードへ</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
+	<!-- daydateオブジェクトが空の時だけaタグを表示する。 -->
+	<div class="footer bg-dark">
+		<div th:replace="~{layouts/footer :: footer}"></div>
+	</div>
+</body>
+</html>

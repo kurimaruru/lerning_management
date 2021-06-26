@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/sanitize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://unpkg.com/charts.css/dist/charts.min.css">
+<script src="https://kit.fontawesome.com/2236e39c35.js"
+	crossorigin="anonymous"></script>
+<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="header" th:replace="~{layouts/header :: header}"></div>
+	<div class="container-fluid">
+		<div class="row" th:style=" 'background-image: url(/img/background.jpg);background-size: cover; '">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<div class="card  m-5 p-5" style="text-align:center;">
+					<div class="card-body" th:if="${title}=='一日の記録'">
+						<h5 th:text="${record_month + '月' + record_day + '日'+'の学習記録'}"></h5>
+						<div class="target_form" th:if="${month_target} == null">
+							<form th:action="@{/day_record}" method="post" th:object="${form}">
+								<input type="hidden" th:value="${record_month}" name="month">
+								<input type="hidden" th:value="${record_day}" name="day">
+								<div class="form-group">
+									<label>学習時間</label>
+									<input type="number" th:field="*{stime}" max="12" required><br>
+									<span th:field="*{stime}" th:if="${#fields.hasErrors('stime')}"
+									th:errors="*{stime}" class="err"></span>
+								</div>
+								<div class="form-group">
+									<label>一言日記</label> 
+									<input type="text" th:field="*{memo}" required><br>
+									<span th:field="*{memo}" th:if="${#fields.hasErrors('memo')}"
+									th:errors="*{memo}" class="err"></span>
+								</div>
+									<input type="submit" value="登録する" class="btn btn-primary" 
+									th:if="${record_month}!=null">
+									<a class="btn btn-danger" th:href="@{/pile}" th:if="${record_month}==null">エラーが発生したのでダッシュボードに戻る</a>
+									<a class="btn btn-success" th:href="@{/pile}" th:if="${record_month}!=null">ダッシュボードへ</a>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
+	<div class="footer bg-dark">
+		<div th:replace="~{layouts/footer :: footer}"></div>
+	</div>
+</body>
+</html>

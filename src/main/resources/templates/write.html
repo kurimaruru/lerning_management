@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/sanitize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://unpkg.com/charts.css/dist/charts.min.css">
+<script src="https://kit.fontawesome.com/2236e39c35.js"
+	crossorigin="anonymous"></script>
+<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="header" th:replace="~{layouts/header :: header}"></div>
+	<div class="container-fluid">
+		<div class="row" th:style=" 'background-image: url(/img/background.jpg);background-size: cover; '">
+						<div class="col-2" style="background-color:#1f3134;">
+				<div class="menu" style="margin-top:50px;">
+					<div class="mb-5">
+						<img alt="mypicture" th:src="@{/img/mwam.jpg}" class="rounded-circle" width="175" height="175">
+					</div>
+					<div class="mb-5">
+						<h4 style="color:white;"><i class="fas fa-user"></i>Riku Kurihara</h4>
+					</div>
+					<div class="mb-5">
+						<a th:href="@{/top}" style="color:white"><i class="fas fa-laptop-house mr-4"></i>トップに戻る</a>
+					</div>
+					<div class="mb-5">
+						<a th:href="@{/}" style="color:white;"><i class="far fa-newspaper mr-4"></i>記事一覧へ</a>
+					</div>
+					<div class="mb-5">
+						<a th:href="@{/pile}" style="color:white;"><i class="fas fa-address-card mr-4"></i>ダッシュボードへ</a><br>
+					</div>
+					<div class="mb-5">
+						<a th:href="@{/write}" style="color:white;"><i class="far fa-newspaper mr-4"></i>記事を投稿する</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-1"></div>
+			<div class="col-6">
+			<div class="card m-5">
+			<form th:action="@{/insert}" th:object="${uploadFile}" method="post"
+				enctype="multipart/form-data" th:if="${title} != '更新' " class="p-5">
+					<div class="form-group">
+						<label>タイトル</label> 
+						<input type="text" th:field="*{title}" class="form-control" required>
+						<span th:field="*{title}" th:if="${#fields.hasErrors('title')}"
+						th:errors="*{title}" class="err"></span>
+					</div>
+					 <div class="form-group">
+    					<label for="exampleFormControlFile1">画像データ</label>
+   						<input type="file" name="file" th:value="*{file}" th:if="${title}!='更新'"
+   							 class="form-control-file"  required>
+   						<span th:field="*{file}" th:if="${#fields.hasErrors('file')}"
+						th:errors="*{file}" class="err"></span>
+ 					 </div>
+					<div class="form-group">
+						<label>本文</label> 
+						<textarea th:field="*{body}" class="form-control"></textarea>
+						<span th:field="*{body}" th:if="${#fields.hasErrors('body')}"
+						th:errors="*{body}" class="err"></span>
+					</div>
+					<div class="form-group">
+						<label>記事URL</label> 
+						<input type="text" th:field="*{url}" class="form-control" required> 
+						<span th:field="*{url}" th:if="${#fields.hasErrors('url')}"
+						th:errors="*{url}" class="err"></span>
+					</div>
+					<input type="submit" value="投稿する" class="btn btn-primary">
+					<a class="btn btn-success" th:href="@{/}">記事一覧へ戻る</a>
+				</form>
+				<!-- 更新フォーム、画像処理の関係上フォームを2つに分けた。 -->
+				<form th:action="@{/updatearticle}" th:object="${uploadFile}" method="post"
+					enctype="multipart/form-data" th:if="${title} == '更新' " class="p-5">
+					<div class="form-group">
+						<label>タイトル</label> <input type="text" th:field="*{title}"
+							class="form-control" required>
+					</div>
+					<input type="hidden"th:if="${title}=='更新'" th:field="*{id}">
+					<input type="hidden" th:field="*{file_path}">
+					<div class="form-group">
+						<label>本文</label>
+						<textarea th:field="*{body}" class="form-control"></textarea>
+					</div>
+					<div class="form-group">
+						<label>記事URL</label> <input type="text" th:field="*{url}"
+							class="form-control" required>
+					</div>
+					<input type="submit" value="更新する" class="btn btn-primary">
+					<a class="btn btn-success" th:href="@{/}">記事一覧へ戻る</a>
+				</form>
+			</div>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
+		<div class="footer bg-dark">
+		<div th:replace="~{layouts/footer :: footer}"></div>
+	</div>
+</body>
+</html>
+<!-- th:if="${title}=='書き込み'" -->

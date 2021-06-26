@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/css/sanitize.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://unpkg.com/charts.css/dist/charts.min.css">
+<script src="https://kit.fontawesome.com/2236e39c35.js"
+	crossorigin="anonymous"></script>
+<title th:text="${title}"></title>
+</head>
+<body>
+	<div class="header" th:replace="~{layouts/header :: header}"></div>
+	<div class="container-fluid">
+		<div class="row"
+			th:style=" 'background-image: url(/img/background.jpg);background-size: cover; '">
+			<div class="col-2" style="background-color:#1f3134;">
+				<div class="menu" style="margin-top:50px;">
+					<div class="mb-5">
+						<img alt="mypicture" th:src="@{/img/mwam.jpg}" class="rounded-circle" width="175" height="175">
+					</div>
+					<div class="mb-5">
+						<h4 style="color:white;"><i class="fas fa-user"></i>Riku Kurihara</h4>
+					</div>
+					<div class="mb-5">
+						<a th:href="@{/top}" style="color:white"><i class="fas fa-laptop-house mr-4"></i>トップに戻る</a>
+					</div>
+					<div class="mb-5">
+						<a th:href="@{/}" style="color:white;"><i class="far fa-newspaper mr-4"></i>記事一覧へ</a>
+					</div>
+					<div class="mb-5">
+						<a th:href="@{/pile}" style="color:white;"><i class="fas fa-address-card mr-4"></i>ダッシュボードへ</a><br>
+					</div>
+					<div class="mb-5">
+						<a th:href="@{/write}" style="color:white;"><i class="far fa-newspaper mr-4"></i>記事を投稿する</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-10 pb-5 " style="display:flex; flex-wrap:wrap;">
+				<div class="mt-5" th:each="x:${list}">
+					<div class="card mr-5" style="width: 300px; height:350px; text-align:center;">
+						<div class="card-body">
+							<a th:href="@{/detail/{y}(y=${x.id} ) }"><img
+								th:src="@{ /img/{y}(y=${x.file_path}) }" style="width:250px;height:160px;object-fit: cover;" ></a>
+							<h5 class="card-title" th:text="${x.title}"></h5>
+							<p class="card-text"
+								th:text="${#dates.format(x.createdDatetime , 'yyyy/MM/dd')}"></p>
+							<p class="card-text"
+								th:text="${#dates.format(x.updateDatetime , 'yyyy/MM/dd')}"></p>
+							<a class="btn btn-primary" th:href="@{/detail/{y}(y=${x.id} ) }">記事を読む</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer bg-dark">
+		<div th:replace="~{layouts/footer :: footer}"></div>
+	</div>
+</body>
+</html>

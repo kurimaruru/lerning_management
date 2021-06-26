@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="footer" th:remove="tag">
+		<div style="text-align: center; margin-bottom: 20px;" class="pt-3">
+			<h1 style="color:white;">プログラミングLMS</h1>
+		</div>
+		<div class="row footer-icon pt-4" style="text-align:center; border-bottom:1px solid white;">
+			<div class="col-4">
+				<a href="#" class="footer-a-tag"> <i 
+					class="fab fa-twitter sns " style="color:#00afcc;">
+						Twitter</i>
+				</a>
+			</div>
+			<div class="col-4">
+				<a href="#" class="footer-a-tag"> <i
+					class="fab fa-instagram-square sns " style="color:#ea5550;"> Instagram</i>
+				</a>
+			</div>
+			<div class="col-4">
+				<a href="#" class="footer-a-tag"> <i
+					class="fab fa-facebook-square sns " style="color:#0068b7;"> Facebook</i>
+				</a>
+			</div>
+		</div>
+		<div class="row mt-5 pb-5" style="text-align:center;">
+			<div class="col-4"> 
+				<a th:href="@{/top}" style="color:white;">トップページ</a>
+			</div>
+			<div class="col-4">
+				<a th:href="@{/}" style="color:white;">記事一覧へ</a>
+			</div>
+			<div class="col-4">
+				<a th:href="@{/pile}" style="color:white;">ダッシュボードへ</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
