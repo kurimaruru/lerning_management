@@ -10,17 +10,18 @@ import javax.persistence.PreUpdate;
 @MappedSuperclass
 public class AbstractEntity {
 
+	//登録時のデータを保存
 	@Column(name="created_datetime")
 	private Date createdDatetime;
-	
+	//更新時のデータを保存
 	@Column(name = "updated_datetime")
 	private Date updateDatetime;
-	
+
 	@PrePersist
 	public void onPrePersist() {
 		setCreatedDatetime(new Date());
 	}
-	
+
 	@PreUpdate
 	public void onPreUpdate() {
 		setUpdateDatetime(new Date());

@@ -18,8 +18,9 @@ public class TargetController {
 
 	@Autowired
 	TargetRepository repository;
-	
+
 	@RequestMapping("/target_write/{thismonth}")
+	//RequestParamで受け取った月の値を今月の目標書き込み画面に渡す
 	public ModelAndView target_write(@PathVariable(required=false)Integer thismonth,ModelAndView mv) {
 		mv.addObject("title","今月の目標書き込み");
 		mv.addObject("thismonth",thismonth);
@@ -27,8 +28,9 @@ public class TargetController {
 		mv.setViewName("target_write");
 		return mv;
 	}
-	
+
 	@RequestMapping("/target_insert")
+	//目標を書き込むメソッド
 	public ModelAndView target_insert(@Validated @ModelAttribute("target_form")TargetEntity entity,
 			BindingResult result,ModelAndView mv) {
 		if(result.hasErrors()) {
@@ -38,15 +40,17 @@ public class TargetController {
 		repository.saveAndFlush(entity);
 		return new ModelAndView("redirect:/pile");
 	}
-	
+
 	@RequestMapping("/target_update")
 	public ModelAndView target_update(@RequestParam(name="id",required=false) Integer id,
 			@RequestParam(name="month",required=false) Integer up_month,ModelAndView mv) {
+		//RequestParamで受け取った月の値を探し出す。
 		List<TargetEntity> month_target = repository.findByMonth(up_month);
 		mv.addObject("month_target",month_target);
 		return set(mv,id,"update_target","target_write");
 	}
-	
+
+	//4つの値をセットするメソッド
 	private ModelAndView set(ModelAndView mv,Integer id,String title,String template) {
 		Optional<TargetEntity> data = repository.findById(id);
 		if(!data.isPresent()) {

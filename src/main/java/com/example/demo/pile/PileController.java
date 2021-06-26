@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PileController {
-	
+
 	@Autowired
 	PileRepository repository;
 	@Autowired
@@ -30,7 +30,9 @@ public class PileController {
 			year = calendar.get(Calendar.YEAR);
 			month = calendar.get(Calendar.MONTH);
 		    int thisMonth = calendar.get(Calendar.MONTH) + 1;
+		    //URLから得たパスの値の月を日程の昇順で並び替える
 		    List<PileEntity> monthdata = repository.findByMonthOrderByDay(thisMonth);
+		    //URLから得たパスの値の月を取得
 		    List<TargetEntity> month_target = target_repository.findByMonth(thisMonth);
 		    mv.addObject("target_form",new TargetEntity());
 			mv.addObject("monthdata",monthdata);
@@ -50,7 +52,7 @@ public class PileController {
 			mv.addObject("year", year);
 			mv.addObject("month", monthparam);
 			return setDate(mv,year,month);
-		}
+		}//ここの部分のifとelseで同じような内容の処理を書いているので、別のメソッドを用意すればもっと綺麗に書けた？？？
 	}
 
 	protected ModelAndView setDate(ModelAndView mv, int year, int month) {
@@ -80,7 +82,7 @@ public class PileController {
 		while (count % 7 != 0) {
 			calendarDay[count++] = nextMonthDay++;
 		}
-		// 各週の日付を格納
+		// 各週の日付を格納、カレンダーを１行ずつ表示するため
 		int[] farstWeek = new int[7];
 		for (int i = 0; i < 7; i++) {
 			farstWeek[i] = calendarDay[i];
@@ -105,7 +107,7 @@ public class PileController {
 		for (int k = 0, l = 35; k < 7; k++) {
 			sixWeek[k] = calendarDay[l++];
 		}
-		
+		//カレンダー上で１ヶ月は最大42日分のマスが必要
 		mv.addObject("farstweek", farstWeek);
 		mv.addObject("secondweek", secondWeek);
 		mv.addObject("thirdweek", thirdWeek);
@@ -115,14 +117,15 @@ public class PileController {
 		mv.setViewName("pile");
 		return mv;
 	}
-	
+
 	@RequestMapping("/day")
+	//リクエストされた月と日程のデータを探し出してくる
 	public ModelAndView dat(@RequestParam(name="month",required=false) Integer mth,
 			@RequestParam(name="day",required=false) Integer dy,ModelAndView mv) {
 		Calendar calendar = Calendar.getInstance();
 		int detailYear = calendar.get(Calendar.YEAR);
-		int detailMonth = mth;
-		int detailDay = dy;
+		int detailMonth = mth;//RequestParamで受け取った値
+		int detailDay = dy;//RequestParamで受け取った値
 		List<PileEntity> daydate = repository.findByMonthAndDay(detailMonth, detailDay);
 		mv.addObject("detailYear",detailYear);
 		mv.addObject("detailMonth",detailMonth);
@@ -131,8 +134,9 @@ public class PileController {
 		mv.setViewName("day");
 		return mv;
 	}
-	
+
 	@RequestMapping("/record")
+	//RequestParamで値を受け取ってその月日を記録画面に渡す。記録画面のinputにhiddenで値格納
 	public ModelAndView record(@RequestParam(name="record_month",required=false)Integer recordmonth,
 			@RequestParam(name="record_day",required=false)Integer recordday,ModelAndView mv) {
 		int record_month=recordmonth;
@@ -144,7 +148,8 @@ public class PileController {
 		mv.setViewName("pile_record");
 		return mv;
 	}
-	
+
+	//日付のデータを登録
 	@RequestMapping("/day_record")
 	public ModelAndView day_record(@Validated @ModelAttribute("form")PileEntity entity,
 			BindingResult result,
